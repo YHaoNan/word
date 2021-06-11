@@ -2,9 +2,11 @@ import os
 import re
 import sys
 import random
-import colorama
-from colorama import init,Fore,Back,Style
-init(autoreset=True)
+
+if 'win' in sys.platform:
+    import colorama
+    from colorama import init,Fore,Back,Style
+    init(autoreset=True)
 
 
 dict_list = []
@@ -36,7 +38,7 @@ def start_exec():
             else:
                 print_g(item['trans'])
         else:
-            print(item['trans'])
+            print_b(item['trans'])
             spell = input('Spell it: ')
             if item['word'] == spell:
                 print_g('[+] Right!')
@@ -50,7 +52,7 @@ def start_exec():
 def load_dict(idx):
     global not_spell
     current_list.clear()
-    with open('./%s'%dict_list[idx],encoding='utf-8') as file:
+    with open('dict/%s'%dict_list[idx],encoding='utf-8') as file:
         first_line = True
         for line in file:
             if first_line:
